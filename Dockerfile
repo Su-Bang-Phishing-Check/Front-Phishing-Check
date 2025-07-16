@@ -17,3 +17,4 @@ RUN npm run build
 # 6. 앱 실행
 EXPOSE 3000
 CMD ["npm", "start"]
+

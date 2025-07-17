@@ -9,10 +9,10 @@ const ChatStepIcon = () => {
       <div className="flex items-center justify-center w-[60px] h-[60px] bg-[#CEE3FF] rounded-full">
         <GoAlert className="h-10 w-10" />
       </div>
-      <div className="flex items-center justify-center w-[60px] h-[60px] bg-[#CEE3FF] rounded-full">
+      <div>
         <FiChevronRight className="h-5 w-5" />
       </div>
-      <div>
+      <div className="flex items-center justify-center w-[60px] h-[60px] bg-[#CEE3FF] rounded-full">
         <GoChecklist className="h-10 w-10" />
       </div>
       <div>

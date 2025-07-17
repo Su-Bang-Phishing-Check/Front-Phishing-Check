@@ -1,3 +1,7 @@
 "use client";
 
-export default function MessageBanner() {}
+const MessageBanner = () => {
+  return <div></div>;
+};
+
+export default MessageBanner;

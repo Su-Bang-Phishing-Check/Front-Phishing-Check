@@ -3,7 +3,7 @@ import { GoChecklist } from "react-icons/go";
 import { BsQuestion } from "react-icons/bs";
 import { FiChevronRight } from "react-icons/fi";
 
-export default function ChatStepIcon() {
+const ChatStepIcon = () => {
   return (
     <div className="flex justify-center items-center space-x-6 mt-2 text-black">
       <div className="flex items-center justify-center w-[60px] h-[60px] bg-[#CEE3FF] rounded-full">
@@ -23,4 +23,6 @@ export default function ChatStepIcon() {
       </div>
     </div>
   );
-}
+};
+
+export default ChatStepIcon;

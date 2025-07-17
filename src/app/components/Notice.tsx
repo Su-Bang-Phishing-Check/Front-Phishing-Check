@@ -2,7 +2,7 @@
 import NoticeList from "./NoticeList";
 import NoticeTriangleIcon from "./NoticeTriangleIcon";
 
-export default function Notice() {
+const Notice = () => {
   const handleNoticeClick = () => {
     console.log("notice list click");
   };
@@ -50,4 +50,6 @@ export default function Notice() {
       </div>
     </section>
   );
-}
+};
+
+export default Notice;

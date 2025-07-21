@@ -1,4 +1,4 @@
-const ContactBook = () => {
+const ContactBookPage = () => {
   return (
     <div>
       <h1>Contact Book</h1>
@@ -6,3 +6,5 @@ const ContactBook = () => {
     </div>
   );
 };
+
+export default ContactBookPage;

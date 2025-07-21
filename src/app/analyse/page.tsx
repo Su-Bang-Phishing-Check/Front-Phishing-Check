@@ -2,7 +2,7 @@
 import TextAnalyse from "./components/TextAnalyse";
 import ImageAnalyse from "./components/ImageAnalyse";
 
-const Analyse = () => {
+const AnalysePage = () => {
   return (
     <div>
       <TextAnalyse />
@@ -10,4 +10,4 @@ const Analyse = () => {
     </div>
   );
 };
-export default Analyse;
+export default AnalysePage;

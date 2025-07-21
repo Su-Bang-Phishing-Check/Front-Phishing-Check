@@ -1,12 +1,12 @@
-'use client';
-import ChatStepIcon from './ChatStepIcon';
-import { useRouter } from 'next/navigation';
+"use client";
+import ChatStepIcon from "./ChatStepIcon";
+import { useRouter } from "next/navigation";
 
 const ChatbotBanner = () => {
   const router = useRouter();
 
   const handleChatClick = () => {
-    router.push('/chatbot');
+    router.push("/chatbot");
   };
 
   return (

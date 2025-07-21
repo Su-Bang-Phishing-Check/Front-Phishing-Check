@@ -1,10 +1,10 @@
-'use client';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useRouter } from "next/navigation";
 
 const MessageBanner = () => {
   const router = useRouter();
   const handleBannerClick = () => {
-    router.push('/analyse');
+    router.push("/analyse");
   };
 
   return (

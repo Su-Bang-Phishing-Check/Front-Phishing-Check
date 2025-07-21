@@ -1,6 +1,6 @@
 "use client";
-import TextAnalyse from "./TextAnalyse";
-import ImageAnalyse from "./ImageAnalyse";
+import TextAnalyse from "./components/TextAnalyse";
+import ImageAnalyse from "./components/ImageAnalyse";
 
 const Analyse = () => {
   return (

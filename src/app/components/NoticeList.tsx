@@ -1,12 +1,19 @@
 interface NoticeListProps {
+  id?: string;
   title: string;
   date: string;
   onClick?: () => void;
 }
 
-const NoticeList = ({ title, date, onClick }: NoticeListProps) => {
+const NoticeList = ({
+  id,
+  title,
+  date,
+  onClick,
+}: NoticeListProps) => {
   return (
     <div
+      id={id}
       className="flex justify-between items-center bg-[#85BAFF] w-full h-[35px] rounded-[5px] text-sm md:text-base text-black px-2 shadow-md cursor-pointer hover:bg-[#A0C4FF] transition-colors duration-200"
       onClick={onClick}
     >

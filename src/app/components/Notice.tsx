@@ -1,11 +1,15 @@
 'use client';
 import NoticeList from './NoticeList';
 import NoticeTriangleIcon from './NoticeTriangleIcon';
+import { useRouter } from 'next/navigation';
 
 const Notice = () => {
+  const router = useRouter();
+
   const handleNoticeClick = () => {
-    console.log('notice list click');
+    router.push('/notice');
   };
+
   const handleListClick = () => {
     console.log('list Click');
   };
@@ -36,21 +40,25 @@ const Notice = () => {
       </div>
       <div className="flex flex-col space-y-2 px-2 md:px-4">
         <NoticeList
+          id="n-001"
           title="청첩장, 부고장 문자 사기 급증"
           date="2025.07.07"
           onClick={handleListClick}
         />
         <NoticeList
+          id="n-002"
           title="입금 송금 알바 주의"
           date="2025.07.07"
           onClick={handleListClick}
         />
         <NoticeList
+          id="n-003"
           title="신종 보이스피싱 수법 확인"
           date="2025.07.07"
           onClick={handleListClick}
         />
         <NoticeList
+          id="n-004"
           title="가짜 금융기관 문자 주의"
           date="2025.07.07"
           onClick={handleListClick}

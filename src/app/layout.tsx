@@ -15,9 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="max-w-[940px] mx-auto px-4 bg-white text-brack">
+      <body className="max-w-[940px] mx-auto bg-white text-brack">
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main className="md:px-4 min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

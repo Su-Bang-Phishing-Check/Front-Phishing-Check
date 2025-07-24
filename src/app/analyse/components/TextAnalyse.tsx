@@ -1,29 +1,35 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 const TextAnalyse = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const [result, setResult] = useState<null | {
-    isScam: boolean;
-    score: number;
+    result: boolean;
+    accuracy: number;
   }>(null);
 
   const handleSubmit = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analyse/text`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/analyse/text`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text }),
+      }
+    );
+    console.log(res);
     if (!res.ok) {
-      alert("결과값 확인 안됨!");
+      alert('결과값 확인 안됨!');
       return;
     }
     const data = await res.json();
+    console.log(data);
     setResult(data);
   };
+
   return (
     <div className="flex flex-col items-center justify-center p-6 gap-y-6">
       <h1 className="text-2xl font-bold">사기 문자 분석</h1>
@@ -40,11 +46,16 @@ const TextAnalyse = () => {
       >
         분석하기
       </button>
+      
       {result && (
         <div className="bg-white border-3 border-[#CEE3FF] p-4 rounded-lg shadow-sm text-black w-[450px] h-[200px]">
           <h2 className="text-lg font-semibold">분석 결과</h2>
-          <p>{result.isScam ? "사기 문자입니다." : "정상적인 문자입니다."}</p>
-          <p>신뢰 점수: {(result.score * 100).toFixed(4)} %</p>
+          <p>
+            {result.result
+              ? '사기 문자입니다.'
+              : '정상적인 문자입니다.'}
+          </p>
+          <p>신뢰 점수: {(result.accuracy * 100).toFixed(4)} %</p>
         </div>
       )}
     </div>

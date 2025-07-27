@@ -15,7 +15,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between p-4 bg-white shadow-md">
+    <header className="flex items-center justify-between p-4 bg-blue-50 shadow-md">
       <h1
         onClick={handleLogoClick}
         className="text-xl md:text-2xl font-bold text-gray-800 cursor-pointer"

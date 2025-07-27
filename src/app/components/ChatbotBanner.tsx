@@ -16,7 +16,7 @@ const ChatbotBanner = () => {
       flex flex-col items-center justify-center 
       bg-white p-4 my-2 md:my-4 mx-2 text-black 
       w-full md:w-[450px] h-[150px] md:h-[200px]
-      border-[1px] border-gray-200
+      border-3 border-blue-100 rounded-xl
       hover:shadow-md active:scale-95 transition-transform"
     >
       <div className="text-lg font-semibold">

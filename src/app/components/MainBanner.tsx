@@ -3,7 +3,7 @@ import Button from './Button';
 
 const MainBanner = () => {
   return (
-    <section className="flex flex-col justify-center p-6 gap-y-6">
+    <section className="flex flex-col justify-center p-6 gap-y-6 w-full bg-white">
       <div>
         <h2 className="font-bold text-[2rem] md:text-[3.25rem]">
           헷갈릴 땐,

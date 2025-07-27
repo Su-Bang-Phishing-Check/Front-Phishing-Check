@@ -38,7 +38,7 @@ const ImageAnalyse = () => {
   };
 
   return (
-    <div className="w-full max-w-[900px] flex flex-col items-center justify-center p-6 gap-y-6">
+    <div className="w-full max-w-[900px] flex flex-col items-center  gap-y-4">
       <ImageUpload image={image} setImage={setImage} />
       <AnalyseButton onClick={handleSubmit} disabled={!image} />
       <AnalyseResult result={result} />

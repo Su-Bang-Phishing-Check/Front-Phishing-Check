@@ -11,15 +11,12 @@ const MessageBanner = () => {
   return (
     <div
       onClick={handleBannerClick}
-      className="
-        cursor-pointer
-        flex flex-row items-center justify-center
-        bg-white gap-x-2
-        p-4 my-1 md:my-4 mx-2 text-black
-        w-full md:w-[450px]
-        h-[150px] md:h-[200px]
-        border-[1px] border-gray-200
-        hover:shadow-md active:scale-95 transition-transform"
+      className="cursor-pointer 
+      flex items-center justify-center 
+      bg-white p-4 my-2 md:my-4 mx-2 text-black 
+      w-full md:w-[450px] h-[150px] md:h-[200px]
+      border-3 border-blue-100 rounded-xl
+      hover:shadow-md active:scale-95 transition-transform"
     >
       <div className="w-1/2 p-3">
         <div className="text-lg font-semibold">문자 내용 분석</div>

@@ -1,7 +1,7 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import ChatBotMessage from "./ChatBotMessage";
+import OptionList from "./OptionList";
 
 export interface ChatInitRequest {
   state: 0;
@@ -49,9 +49,37 @@ const ChatMessageList = () => {
     fetchInit();
   }, []);
 
+  const handleOptionSelect = async (index: number) => {
+    const body: ChatNextRequest = {
+      state: 1,
+      select: [index],
+      temp: temp,
+    };
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      console.error("next fetch 실패");
+      return;
+    }
+
+    const data: ChatAPIResponse = await res.json();
+    console.log(data);
+    setQuestion(data.question);
+    setOptions(data.options);
+    setTemp(data.temp);
+  };
+
   return (
     <div>
-      <ChatBotMessage />
+      <ChatBotMessage question={question} />
+      <OptionList options={options} onSelect={handleOptionSelect} />
     </div>
   );
 };

@@ -1,9 +1,5 @@
-import ChatHeader from "./components/ChatHeader";
-import ChatMessageList from "./components/ChatMessageList";
-interface ChatBotAPIResponse {
-  question: string;
-  options: string[];
-}
+import ChatHeader from './components/ChatHeader';
+import ChatMessageList from './components/ChatMessageList';
 
 const ChatbotPage = () => {
   return (

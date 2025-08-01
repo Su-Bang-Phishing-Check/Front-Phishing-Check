@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import ChatBotMessage from './ChatBotMessage';
 import OptionList from './OptionList';
 import OptionSubmitButton from './OptionSubmitButton';
+import UserMessage from './UserMessage';
 
 export interface ChatInitRequest {
   state: 0;
@@ -28,6 +29,7 @@ const ChatMessageList = () => {
   const [selectedOptions, setSelectedOptions] = useState<number[]>(
     []
   );
+  const [userText, setUserText] = useState<string[]>([]);
 
   // state 0 : 초기화 요청 + 1단계 질문, 옵션 셋팅
   useEffect(() => {
@@ -73,6 +75,12 @@ const ChatMessageList = () => {
       console.warn('선택된 옵션이 없습니다.');
       return;
     }
+
+    const selectedText = selectedOptions.map(
+      (index) => options[index]
+    );
+    setUserText(selectedText);
+
     const body: ChatNextRequest = {
       state: 1,
       select: selectedOptions,
@@ -99,6 +107,7 @@ const ChatMessageList = () => {
     setOptions(data.options);
     setTemp(data.temp);
 
+    setUserText([]);
     setSelectedOptions([]);
   };
 
@@ -114,6 +123,7 @@ const ChatMessageList = () => {
         disabled={selectedOptions.length === 0}
         onSubmit={() => submitOptions(selectedOptions)}
       />
+      <UserMessage text={userText} />
     </div>
   );
 };

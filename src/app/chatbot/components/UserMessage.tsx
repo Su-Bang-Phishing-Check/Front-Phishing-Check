@@ -10,16 +10,16 @@ const UserMessage = ({ text }: UserMessageProps) => {
   });
 
   return (
-    <div className="flex flex-col items-end gap-x-2">
-      <p className="text-sx md:text-sm text-gray-500">
+    <div className="flex flex-col items-end gap-x-2 mt-2">
+      <div
+        className="text-sm md:text-base text-white bg-gray-600
+      p-2 rounded-xl shadow-md pl-6 pr-4 whitespace-pre-line"
+      >
+        {text.join(', \n')}
+      </div>
+      <p className="mt-1 text-xs md:text-sm text-gray-500">
         {formattedData}
       </p>
-      <div
-        className="text-sm md:text-base text-white bg-gray-800
-      p-2 rounded-lg shadow-md pl-6 pr-4"
-      >
-        {text.join(',\n')}
-      </div>
     </div>
   );
 };

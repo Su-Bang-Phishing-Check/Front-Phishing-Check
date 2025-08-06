@@ -11,11 +11,11 @@ const ContactList = ({ name, phone }: ContactType): JSX.Element => {
       <p className="w-full md:w-2/5 flex md:flex-col font-medium md:hidden">
         {phone.join(', ')}
       </p>
-      <p className="hidden md:inline-block w-full md:w-2/5 flex md:flex-col font-medium">
+      <div className="hidden md:inline-block w-full md:w-2/5 flex md:flex-col font-medium">
         {phone.map((phone, index) => (
           <p key={index}>{phone}</p>
         ))}
-      </p>
+      </div>
     </div>
   );
 };

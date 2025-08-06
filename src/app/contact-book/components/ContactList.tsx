@@ -12,8 +12,8 @@ const ContactList = ({ name, phone }: ContactType): JSX.Element => {
         {phone.join(', ')}
       </p>
       <p className="hidden md:inline-block w-full md:w-2/5 flex md:flex-col font-medium">
-        {phone.map((p) => (
-          <p key={p}>{p}</p>
+        {phone.map((phone, index) => (
+          <p key={index}>{phone}</p>
         ))}
       </p>
     </div>

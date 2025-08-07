@@ -1,10 +1,11 @@
-import ContactList from './components/ContactList';
-import list from './data/list.json';
+import ContactList from "./components/ContactList";
+import list from "./data/list.json";
 
 export interface ContactType {
   name: string;
   phone: string[];
   image?: string;
+  url: string;
 }
 
 const ContactBookPage = () => {
@@ -16,6 +17,7 @@ const ContactBookPage = () => {
             key={bank.name}
             name={bank.name}
             phone={bank.phone}
+            url={bank.url}
           />
         ))}
       </div>

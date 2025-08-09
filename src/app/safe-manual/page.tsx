@@ -83,7 +83,7 @@ const ManualPage = () => {
               <h1 className="font-bold">
                 1) 개인정보 노출 사실 등록
               </h1>
-              <p>
+              <div>
                 금감원 개인정보 노출자 사고예방 시스템
                 <LinkExternal
                   label="(pd.fss.or.kr)"
@@ -104,13 +104,13 @@ const ManualPage = () => {
                   개인정보 노출사실을 등록하면 신규계좌 개설, 신용카드
                   발급 등 제한
                 </p>
-              </p>
+              </div>
             </li>
             <li className="mb-4">
               <h1 className="font-bold">
                 2) 본인계좌 지급정지(일괄 및 부분) 신청
               </h1>
-              <p>
+              <div>
                 금융결제원 계좌정보통합관리서비스
                 <LinkExternal
                   label="(www.payinfo.or.kr)"
@@ -126,13 +126,13 @@ const ManualPage = () => {
                   콜센터(전화)
                 </span>
                 를 통해서도 지급정지 신청 가능 본인 계좌
-              </p>
+              </div>
             </li>
             <li className="mb-4">
               <h1 className="font-bold">
                 3) 휴대폰 개통 및 명의도용 여부 확인
               </h1>
-              <p>
+              <div>
                 한국정보통신진흥협회 명의도용방지 서비스
                 <LinkExternal
                   label="(www.msafer.or.kr)"
@@ -149,11 +149,11 @@ const ManualPage = () => {
                 <span className="text-red-600 font-bold">
                   회선 해지 신청 및 명의도용 신고
                 </span>
-              </p>
+              </div>
             </li>
             <li className="mb-4">
               <h1 className="font-bold">4) 신분증 분실신고</h1>
-              <p>
+              <div>
                 - 주민등록증은 정부24
                 <LinkExternal
                   label="(https://www.gov.kr)"
@@ -169,11 +169,11 @@ const ManualPage = () => {
                 사이트에서 재발급 진행
                 <br />- 외국인등록증은 가까운 경찰서에서 분실신고,
                 해당지역 출입국사무소에서 재발급
-              </p>
+              </div>
             </li>
             <li className="mb-4">
               <h1 className="font-bold">5) 휴대폰 초기화</h1>
-              <p>
+              <div>
                 - 악성앱 삭제 및 휴대전화 초기화{' '}
                 <span className="text-red-600 font-bold">
                   (초기화 전까지 휴대전화 전원을 끄거나 비행기모드
@@ -181,7 +181,7 @@ const ManualPage = () => {
                 </span>
                 <br />- 휴대전화 기기사 서비스센터를 통해 악성코드
                 감염 여부 확인 및 상담
-              </p>
+              </div>
             </li>
           </ul>
         </div>

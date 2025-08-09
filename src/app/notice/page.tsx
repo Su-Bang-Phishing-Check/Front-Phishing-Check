@@ -1,3 +1,5 @@
+import GetPageNotice from './pageNotice';
+
 const NoticePage = () => {
   return (
     <div className="flex flex-col items-center p-6">
@@ -8,12 +10,11 @@ const NoticePage = () => {
         <p className="text-gray-600 text-sm md:text-base">
           금융감독원에서 공지하고 있는 금융소비자보호 경보 내용을
           공유합니다.
-          <br />
-          유행하는 보이스피싱 수법과 안전한 금융생활을 위한 내용을
-          공지합니다.
         </p>
       </div>
-      <section></section>
+      <section>
+        <GetPageNotice />
+      </section>
     </div>
   );
 };

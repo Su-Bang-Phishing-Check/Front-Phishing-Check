@@ -65,7 +65,7 @@ const ChatMessageList = () => {
     if (didInit.current) return;
     didInit.current = true;
 
-    async () => {
+    const initFetch = async () => {
       const body: ChatInitRequest = { state: 0 };
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {
         method: "POST",
@@ -90,6 +90,7 @@ const ChatMessageList = () => {
       setSelectedOptions([]);
       setDidSubmit(false);
     };
+    initFetch();
   }, []);
 
   // 사용자 선택 옵션 토글

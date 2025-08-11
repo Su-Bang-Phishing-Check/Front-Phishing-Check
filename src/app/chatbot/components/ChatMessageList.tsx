@@ -1,13 +1,13 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import ChatBotMessage from "./ChatBotMessage";
 import OptionList from "./OptionList";
 import OptionSubmitButton from "./OptionSubmitButton";
 import UserMessage from "./UserMessage";
 
 interface TempType {
-  next: [];
-  next_2: [];
+  next: number[];
+  next_2: number[];
   cur_question: number;
   followup?: number | null;
 }
@@ -31,7 +31,6 @@ interface ChatAPIResponse {
 
 // 채팅 이력 누적 관리
 interface Message {
-  id?: string;
   type: "bot" | "user";
   text: string;
   options?: string[];
@@ -39,12 +38,22 @@ interface Message {
 }
 
 const ChatMessageList = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]); // 채팅 메시지
   const messagesEndRef = useRef<HTMLDivElement>(null); // 스크롤 관리
-  const [options, setOptions] = useState<string[]>([]);
-  const [temp, setTemp] = useState<TempType>();
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [temp, setTemp] = useState<TempType>(); // 서버 temp 데이터
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]); // 선택 옵션 인덱스
+  const [didSubmit, setDidSubmit] = useState(false); // 현재 옵션 제출 여부
   const didInit = useRef(false);
+
+  // 현재 활성 봇 메세지 인덱스
+  const activeBotIndex = useMemo(() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].type === "bot") {
+        return i;
+      }
+    }
+    return -1;
+  }, [messages]);
 
   // 자동 스크롤 설정
   useEffect(() => {
@@ -56,7 +65,7 @@ const ChatMessageList = () => {
     if (didInit.current) return;
     didInit.current = true;
 
-    const fetchInit = async () => {
+    async () => {
       const body: ChatInitRequest = { state: 0 };
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {
         method: "POST",
@@ -74,17 +83,16 @@ const ChatMessageList = () => {
       const data: ChatAPIResponse = await res.json();
       console.log(data);
       setTemp(data.temp);
-      setOptions(data.options);
       setMessages((prev) => [
         ...prev,
         { type: "bot", text: data.question, options: data.options },
       ]);
+      setSelectedOptions([]);
+      setDidSubmit(false);
     };
-
-    fetchInit();
   }, []);
 
-  // 사용자 중복 선택 저장
+  // 사용자 선택 옵션 토글
   const onToggleOptions = (index: number) => {
     setSelectedOptions((prev) =>
       prev.includes(index) ? prev.filter((x) => x !== index) : [...prev, index]
@@ -99,9 +107,15 @@ const ChatMessageList = () => {
       console.warn("선택된 옵션이 없습니다.");
       return;
     }
+    if (didSubmit) {
+      console.warn("이미 제출된 상태입니다.");
+      return;
+    }
 
+    setDidSubmit(true);
+    const activeOptions = messages[activeBotIndex]?.options ?? [];
     const selectedText = selectedOptions
-      .map((index) => options[index])
+      .map((i) => activeOptions[i])
       .join(", \n");
 
     setMessages((prev) => [...prev, { type: "user", text: selectedText }]);
@@ -120,6 +134,7 @@ const ChatMessageList = () => {
     });
     if (!res.ok) {
       console.error("next fetch 실패");
+      setDidSubmit(false);
       return;
     }
     const data: ChatAPIResponse = await res.json();
@@ -127,51 +142,49 @@ const ChatMessageList = () => {
 
     if (data.state === 1) {
       setTemp(data.temp);
-      setOptions(data.options);
       setMessages((prev) => [
         ...prev,
         { type: "bot", text: data.question, options: data.options },
       ]);
       setSelectedOptions([]);
+      setDidSubmit(false);
     } else if (data.state === 2) {
-      setOptions([]);
-      setSelectedOptions([]);
       setMessages((prev) => [
         ...prev,
         { type: "bot", text: data.question, finish: true },
       ]);
+      setSelectedOptions([]);
     }
   };
 
   return (
     <div className="overflow-y-auto h-full">
-      {messages.map((msg, index) => (
-        <div key={msg.id ?? index}>
-          {msg.type === "bot" && msg.finish !== true && (
-            <>
-              <ChatBotMessage question={msg.text} />
-              {!msg.finish && (
-                <>
-                  {msg.options && (
-                    <>
-                      <OptionList
-                        options={msg.options}
-                        selected={selectedOptions}
-                        onToggle={onToggleOptions}
-                      />
-                      <OptionSubmitButton
-                        disabled={selectedOptions.length === 0}
-                        onSubmit={() => submitOptions(selectedOptions)}
-                      />
-                    </>
-                  )}
-                </>
-              )}
-            </>
-          )}
-          {msg.type === "user" && <UserMessage text={msg.text} />}
-        </div>
-      ))}
+      {messages.map((msg, index) => {
+        const isActive = index === activeBotIndex;
+        return (
+          <div key={index}>
+            {msg.type === "bot" && (
+              <>
+                <ChatBotMessage question={msg.text} />
+                {isActive && !msg.finish && msg.options && (
+                  <>
+                    <OptionList
+                      options={msg.options}
+                      selected={selectedOptions}
+                      onToggle={onToggleOptions}
+                    />
+                    <OptionSubmitButton
+                      disabled={selectedOptions.length === 0 || didSubmit}
+                      onSubmit={() => submitOptions(selectedOptions)}
+                    />
+                  </>
+                )}
+              </>
+            )}
+            {msg.type === "user" && <UserMessage text={msg.text} />}
+          </div>
+        );
+      })}
       <div ref={messagesEndRef} />
     </div>
   );

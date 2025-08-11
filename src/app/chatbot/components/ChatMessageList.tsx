@@ -24,9 +24,10 @@ interface ChatNextRequest {
 
 interface ChatAPIResponse {
   state: 0 | 1 | 2;
-  question: string;
-  options: string[];
-  temp: TempType;
+  question?: string;
+  options?: string[];
+  temp?: TempType;
+  result?: string;
 }
 
 // 채팅 이력 누적 관리
@@ -85,7 +86,7 @@ const ChatMessageList = () => {
       setTemp(data.temp);
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.question, options: data.options },
+        { type: "bot", text: data.question ?? "", options: data.options ?? [] },
       ]);
       setSelectedOptions([]);
       setDidSubmit(false);
@@ -145,18 +146,20 @@ const ChatMessageList = () => {
       setTemp(data.temp);
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.question, options: data.options },
+        { type: "bot", text: data.question ?? "", options: data.options ?? [] },
       ]);
       setSelectedOptions([]);
       setDidSubmit(false);
     } else if (data.state === 2) {
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.question, finish: true },
+        { type: "bot", text: data.result ?? "", finish: true },
       ]);
       setSelectedOptions([]);
     }
   };
+
+  console.log("messages", messages);
 
   return (
     <div className="overflow-y-auto h-full">

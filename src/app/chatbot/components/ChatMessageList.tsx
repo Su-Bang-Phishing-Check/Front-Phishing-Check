@@ -36,6 +36,7 @@ interface Message {
   text: string;
   options?: string[];
   finish?: boolean;
+  time: string;
 }
 
 const ChatMessageList = () => {
@@ -45,6 +46,14 @@ const ChatMessageList = () => {
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]); // 선택 옵션 인덱스
   const [didSubmit, setDidSubmit] = useState(false); // 현재 옵션 제출 여부
   const didInit = useRef(false);
+
+  // 현재 시간 포맷팅
+  const getCurrentTime = () => {
+    return new Date().toLocaleTimeString("ko-KR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
 
   // 현재 활성 봇 메세지 인덱스
   const activeBotIndex = useMemo(() => {
@@ -86,7 +95,12 @@ const ChatMessageList = () => {
       setTemp(data.temp);
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.question ?? "", options: data.options ?? [] },
+        {
+          type: "bot",
+          text: data.question ?? "",
+          options: data.options ?? [],
+          time: getCurrentTime(),
+        },
       ]);
       setSelectedOptions([]);
       setDidSubmit(false);
@@ -120,7 +134,10 @@ const ChatMessageList = () => {
       .map((i) => activeOptions[i])
       .join(", \n");
 
-    setMessages((prev) => [...prev, { type: "user", text: selectedText }]);
+    setMessages((prev) => [
+      ...prev,
+      { type: "user", text: selectedText, time: getCurrentTime() },
+    ]);
 
     const body: ChatNextRequest = {
       state: 1,
@@ -146,14 +163,24 @@ const ChatMessageList = () => {
       setTemp(data.temp);
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.question ?? "", options: data.options ?? [] },
+        {
+          type: "bot",
+          text: data.question ?? "",
+          options: data.options ?? [],
+          time: getCurrentTime(),
+        },
       ]);
       setSelectedOptions([]);
       setDidSubmit(false);
     } else if (data.state === 2) {
       setMessages((prev) => [
         ...prev,
-        { type: "bot", text: data.result ?? "", finish: true },
+        {
+          type: "bot",
+          text: data.result ?? "",
+          finish: true,
+          time: getCurrentTime(),
+        },
       ]);
       setSelectedOptions([]);
     }
@@ -169,7 +196,7 @@ const ChatMessageList = () => {
           <div key={index}>
             {msg.type === "bot" && (
               <>
-                <ChatBotMessage question={msg.text} />
+                <ChatBotMessage question={msg.text} time={msg.time} />
                 {isActive && !msg.finish && msg.options && (
                   <>
                     <OptionList
@@ -185,7 +212,9 @@ const ChatMessageList = () => {
                 )}
               </>
             )}
-            {msg.type === "user" && <UserMessage text={msg.text} />}
+            {msg.type === "user" && (
+              <UserMessage text={msg.text} time={msg.time} />
+            )}
           </div>
         );
       })}

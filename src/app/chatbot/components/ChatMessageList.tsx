@@ -5,6 +5,13 @@ import OptionList from './OptionList';
 import OptionSubmitButton from './OptionSubmitButton';
 import UserMessage from './UserMessage';
 
+interface TempType {
+  next: [];
+  next_2: [];
+  cur_question: number;
+  follwup?: number | null;
+}
+
 interface ChatInitRequest {
   state: 0;
 }
@@ -12,14 +19,14 @@ interface ChatInitRequest {
 interface ChatNextRequest {
   state: 1;
   select: number[];
-  temp: any;
+  temp: TempType;
 }
 
 interface ChatAPIResponse {
-  state: 0 | 1;
+  state: 0 | 1 | 2;
   question: string;
   options: string[];
-  temp: any;
+  temp: TempType;
 }
 
 // 채팅 이력 누적 관리
@@ -28,13 +35,14 @@ interface Message {
   type: 'bot' | 'user';
   text: string;
   options?: string[];
+  finish?: boolean;
 }
 
 const ChatMessageList = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null); // 스크롤 관리
   const [options, setOptions] = useState<string[]>([]);
-  const [temp, setTemp] = useState<any>(null);
+  const [temp, setTemp] = useState<TempType>();
   const [selectedOptions, setSelectedOptions] = useState<number[]>(
     []
   );
@@ -107,7 +115,7 @@ const ChatMessageList = () => {
     const body: ChatNextRequest = {
       state: 1,
       select: selectedOptions,
-      temp: temp,
+      temp: temp!,
     };
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/chatbot`,
@@ -126,33 +134,48 @@ const ChatMessageList = () => {
     const data: ChatAPIResponse = await res.json();
     console.log(data);
 
-    setTemp(data.temp);
-    setOptions(data.options);
-    setMessages((prev) => [
-      ...prev,
-      { type: 'bot', text: data.question, options: data.options },
-    ]);
-    setSelectedOptions([]);
+    if (data.state === 1) {
+      setTemp(data.temp);
+      setOptions(data.options);
+      setMessages((prev) => [
+        ...prev,
+        { type: 'bot', text: data.question, options: data.options },
+      ]);
+      setSelectedOptions([]);
+    } else if (data.state === 2) {
+      setOptions([]);
+      setSelectedOptions([]);
+      setMessages((prev) => [
+        ...prev,
+        { type: 'bot', text: data.question, finish: true },
+      ]);
+    }
   };
 
   return (
     <div className="overflow-y-auto h-full">
       {messages.map((msg, index) => (
         <div key={msg.id ?? index}>
-          {msg.type === 'bot' && (
+          {msg.type === 'bot' && msg.finish !== true && (
             <>
               <ChatBotMessage question={msg.text} />
-              {msg.options && (
+              {!msg.finish && (
                 <>
-                  <OptionList
-                    options={msg.options}
-                    selected={selectedOptions}
-                    onToggle={onToggleOptions}
-                  />
-                  <OptionSubmitButton
-                    disabled={selectedOptions.length === 0}
-                    onSubmit={() => submitOptions(selectedOptions)}
-                  />
+                  {msg.options && (
+                    <>
+                      <OptionList
+                        options={msg.options}
+                        selected={selectedOptions}
+                        onToggle={onToggleOptions}
+                      />
+                      <OptionSubmitButton
+                        disabled={selectedOptions.length === 0}
+                        onSubmit={() =>
+                          submitOptions(selectedOptions)
+                        }
+                      />
+                    </>
+                  )}
                 </>
               )}
             </>

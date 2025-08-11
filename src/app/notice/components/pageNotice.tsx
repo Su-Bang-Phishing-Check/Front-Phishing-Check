@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Link from "next/link";
 
 interface GetPageResponse {
@@ -13,7 +14,7 @@ interface NoticeType {
   id: number;
   title: string;
   link: string;
-  DATE_FORMAT: string;
+  created_at: string;
 }
 
 const GetPageNotice = () => {
@@ -48,7 +49,7 @@ const GetPageNotice = () => {
           id: it.id,
           title: it.title,
           link: it.link,
-          DATE_FORMAT: it.DATE_FORMAT,
+          created_at: it.created_at,
         }))
       );
     } catch (err) {
@@ -67,59 +68,75 @@ const GetPageNotice = () => {
   const goNext = () => setPageNo((p) => Math.min(p + 1, totalPage));
 
   return (
-    <div className="flex flex-col items-center p-6 border-gray-200">
+    <div className="flex flex-col items-center border-gray-200 m-4">
       {loading && <p>불러오는 중입니다...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && notices.length > 0 ? (
-        <div className="w-full max-w-[900px] rounded-lg overflow-hidden bg-slate-800/90">
-          {notices.map((notice) => (
-            <div key={notice.id} className="group">
-              <p>
-                <Link
-                  href={notice.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-3 px-4 py-3 text-white
-                    border-b border-slate-600/40
-                    hover:border-slate-400 active:border-slate-300
-                    transition-colors duration-200
-                    focus:outline-none focus-visible:border-slate-400"
-                >
-                  <span className="shrink-0 w-10 text-sm text-slate-300 tabular-nums">
-                    {notice.id}
-                  </span>
-                  <span className="flex-1 font-medium leading-snug line-clamp-2">
-                    {notice.title}
-                  </span>
-                </Link>
-              </p>
-              <span className="ml-3 text-xs text-slate-300 whitespace-nowrap">
-                {notice.DATE_FORMAT}
-              </span>
-            </div>
-          ))}
+        <div className="w-full max-w-[900px]">
+          <div className="border border-gray-200 rounded-sm overflow-hidden bg-white">
+            <table className="w-full table-fixed">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="w-20 px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                    번호
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                    제목
+                  </th>
+                  <th className="w-36 px-4 py-3 text-left text-xs font-semibold text-gray-600">
+                    등록일
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {notices.map((notice) => (
+                  <tr
+                    key={notice.id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-4 py-3 text-sm text-gray-700 tabular-nums">
+                      {notice.id}
+                    </td>
+
+                    <td className="px-4 py-3">
+                      <Link
+                        href={notice.link}
+                        className="text-sm text-blue-600 hover:underline line-clamp-2"
+                      >
+                        {notice.title}
+                      </Link>
+                    </td>
+
+                    <td className="px-4 py-3 text-right text-xs text-gray-500 whitespace-nowrap">
+                      {notice.created_at}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         !loading && !error && <p>공지사항이 없습니다.</p>
       )}
-      <div className="mb-4 flex items-center gap-3">
+      <div>
         <button
           onClick={goPrev}
-          disabled={pageNo <= 1}
-          className="px-3 py-1 rounded border disabled:opacity-50"
+          disabled={pageNo === 1}
+          className="p-3 cursor-pointer"
         >
-          ◁
+          <FiChevronLeft className="inline-block" />
         </button>
-        <span className="text-sm text-gray-600">
+        <span>
           {pageNo} / {totalPage}
         </span>
         <button
           onClick={goNext}
-          disabled={pageNo >= totalPage}
-          className="px-3 py-1 rounded border disabled:opacity-50"
+          disabled={pageNo === totalPage}
+          className="p-3 cursor-pointer"
         >
-          ▷
+          <FiChevronRight className="inline-block" />
         </button>
       </div>
     </div>

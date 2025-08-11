@@ -1,6 +1,6 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface GetPageResponse {
   pageNo: number;
@@ -34,11 +34,11 @@ const GetPageNotice = () => {
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/notice/pageNotice?${qs}`,
-        { method: 'GET', cache: 'no-store' }
+        { method: "GET", cache: "no-store" }
       );
 
       if (!res.ok) {
-        console.error('공지사항 조회 실패');
+        console.error("공지사항 조회 실패");
         return;
       }
       const data: GetPageResponse = await res.json();
@@ -52,8 +52,8 @@ const GetPageNotice = () => {
         }))
       );
     } catch (err) {
-      setError('공지사항을 불러오는 중 오류가 발생했습니다.');
-      console.error('공지사항 조회 중 오류 발생:', err);
+      setError("공지사항을 불러오는 중 오류가 발생했습니다.");
+      console.error("공지사항 조회 중 오류 발생:", err);
     } finally {
       setLoading(false);
     }
@@ -72,20 +72,31 @@ const GetPageNotice = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {!loading && !error && notices.length > 0 ? (
-        <div className="flex flex-col items-center p-6">
+        <div className="w-full max-w-[900px] rounded-lg overflow-hidden bg-slate-800/90">
           {notices.map((notice) => (
-            <div key={notice.id} className="mb-4">
+            <div key={notice.id} className="group">
               <p>
                 <Link
                   href={notice.link}
-                  className="text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 px-4 py-3 text-white
+                    border-b border-slate-600/40
+                    hover:border-slate-400 active:border-slate-300
+                    transition-colors duration-200
+                    focus:outline-none focus-visible:border-slate-400"
                 >
-                  {notice.title}
+                  <span className="shrink-0 w-10 text-sm text-slate-300 tabular-nums">
+                    {notice.id}
+                  </span>
+                  <span className="flex-1 font-medium leading-snug line-clamp-2">
+                    {notice.title}
+                  </span>
                 </Link>
               </p>
-              <p className="text-gray-500 text-sm">
+              <span className="ml-3 text-xs text-slate-300 whitespace-nowrap">
                 {notice.DATE_FORMAT}
-              </p>
+              </span>
             </div>
           ))}
         </div>

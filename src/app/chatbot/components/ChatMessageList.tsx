@@ -1,15 +1,15 @@
-'use client';
-import { useState, useEffect, useRef } from 'react';
-import ChatBotMessage from './ChatBotMessage';
-import OptionList from './OptionList';
-import OptionSubmitButton from './OptionSubmitButton';
-import UserMessage from './UserMessage';
+"use client";
+import { useState, useEffect, useRef } from "react";
+import ChatBotMessage from "./ChatBotMessage";
+import OptionList from "./OptionList";
+import OptionSubmitButton from "./OptionSubmitButton";
+import UserMessage from "./UserMessage";
 
 interface TempType {
   next: [];
   next_2: [];
   cur_question: number;
-  follwup?: number | null;
+  followup?: number | null;
 }
 
 interface ChatInitRequest {
@@ -32,7 +32,7 @@ interface ChatAPIResponse {
 // 채팅 이력 누적 관리
 interface Message {
   id?: string;
-  type: 'bot' | 'user';
+  type: "bot" | "user";
   text: string;
   options?: string[];
   finish?: boolean;
@@ -43,32 +43,30 @@ const ChatMessageList = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null); // 스크롤 관리
   const [options, setOptions] = useState<string[]>([]);
   const [temp, setTemp] = useState<TempType>();
-  const [selectedOptions, setSelectedOptions] = useState<number[]>(
-    []
-  );
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const didInit = useRef(false);
 
   // 자동 스크롤 설정
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   // state 0 : 초기화 요청 + 1단계 질문, 옵션 셋팅
   useEffect(() => {
+    if (didInit.current) return;
+    didInit.current = true;
     const fetchInit = async () => {
       const body: ChatInitRequest = { state: 0 };
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/chatbot`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
       if (!res.ok) {
-        console.error('init fetch 실패');
+        console.error("init fetch 실패");
         return;
       }
 
@@ -78,7 +76,7 @@ const ChatMessageList = () => {
       setOptions(data.options);
       setMessages((prev) => [
         ...prev,
-        { type: 'bot', text: data.question, options: data.options },
+        { type: "bot", text: data.question, options: data.options },
       ]);
     };
 
@@ -88,9 +86,7 @@ const ChatMessageList = () => {
   // 사용자 중복 선택 저장
   const onToggleOptions = (index: number) => {
     setSelectedOptions((prev) =>
-      prev.includes(index)
-        ? prev.filter((x) => x !== index)
-        : [...prev, index]
+      prev.includes(index) ? prev.filter((x) => x !== index) : [...prev, index]
     );
   };
 
@@ -99,36 +95,30 @@ const ChatMessageList = () => {
   // 선택 옵션 전송 + 다음 질문, 옵션 셋팅
   const submitOptions = async (selectedOptions: number[]) => {
     if (selectedOptions.length === 0) {
-      console.warn('선택된 옵션이 없습니다.');
+      console.warn("선택된 옵션이 없습니다.");
       return;
     }
 
     const selectedText = selectedOptions
       .map((index) => options[index])
-      .join(', \n');
+      .join(", \n");
 
-    setMessages((prev) => [
-      ...prev,
-      { type: 'user', text: selectedText },
-    ]);
+    setMessages((prev) => [...prev, { type: "user", text: selectedText }]);
 
     const body: ChatNextRequest = {
       state: 1,
       select: selectedOptions,
       temp: temp!,
     };
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/chatbot`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
     if (!res.ok) {
-      console.error('next fetch 실패');
+      console.error("next fetch 실패");
       return;
     }
     const data: ChatAPIResponse = await res.json();
@@ -139,7 +129,7 @@ const ChatMessageList = () => {
       setOptions(data.options);
       setMessages((prev) => [
         ...prev,
-        { type: 'bot', text: data.question, options: data.options },
+        { type: "bot", text: data.question, options: data.options },
       ]);
       setSelectedOptions([]);
     } else if (data.state === 2) {
@@ -147,7 +137,7 @@ const ChatMessageList = () => {
       setSelectedOptions([]);
       setMessages((prev) => [
         ...prev,
-        { type: 'bot', text: data.question, finish: true },
+        { type: "bot", text: data.question, finish: true },
       ]);
     }
   };
@@ -156,7 +146,7 @@ const ChatMessageList = () => {
     <div className="overflow-y-auto h-full">
       {messages.map((msg, index) => (
         <div key={msg.id ?? index}>
-          {msg.type === 'bot' && msg.finish !== true && (
+          {msg.type === "bot" && msg.finish !== true && (
             <>
               <ChatBotMessage question={msg.text} />
               {!msg.finish && (
@@ -170,9 +160,7 @@ const ChatMessageList = () => {
                       />
                       <OptionSubmitButton
                         disabled={selectedOptions.length === 0}
-                        onSubmit={() =>
-                          submitOptions(selectedOptions)
-                        }
+                        onSubmit={() => submitOptions(selectedOptions)}
                       />
                     </>
                   )}
@@ -180,7 +168,7 @@ const ChatMessageList = () => {
               )}
             </>
           )}
-          {msg.type === 'user' && <UserMessage text={msg.text} />}
+          {msg.type === "user" && <UserMessage text={msg.text} />}
         </div>
       ))}
       <div ref={messagesEndRef} />

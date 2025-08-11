@@ -55,6 +55,7 @@ const ChatMessageList = () => {
   useEffect(() => {
     if (didInit.current) return;
     didInit.current = true;
+
     const fetchInit = async () => {
       const body: ChatInitRequest = { state: 0 };
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chatbot`, {

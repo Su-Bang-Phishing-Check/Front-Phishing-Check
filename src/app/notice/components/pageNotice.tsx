@@ -102,7 +102,7 @@ const GetPageNotice = () => {
                     <td className="px-4 py-3">
                       <Link
                         href={notice.link}
-                        className="h-16 text-base hover:underline hover:text-blue-500 line-clamp-2"
+                        className="h-16 text-base hover:underline hover:text-blue-500 line-clamp-2 items-center"
                       >
                         {notice.title}
                       </Link>

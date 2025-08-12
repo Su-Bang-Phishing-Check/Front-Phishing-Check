@@ -4,7 +4,7 @@ import ChatBotMessage from "./ChatBotMessage";
 import OptionList from "./OptionList";
 import OptionSubmitButton from "./OptionSubmitButton";
 import UserMessage from "./UserMessage";
-import ChatResult from "./ChatResult";
+import ResultModal from "./ResultModal";
 
 interface TempType {
   next: number[];
@@ -53,6 +53,7 @@ const ChatMessageList = () => {
   const [temp, setTemp] = useState<TempType>(); // 서버 temp 데이터
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]); // 선택 옵션 인덱스
   const [didSubmit, setDidSubmit] = useState(false); // 현재 옵션 제출 여부
+  const [isOpen, setIsOpen] = useState(false); // 모달 열림 상태
   const didInit = useRef(false);
 
   // 현재 시간 포맷팅
@@ -226,7 +227,12 @@ const ChatMessageList = () => {
               <UserMessage text={msg.text} time={msg.time} />
             )}
             {msg.type === "bot" && msg.finish && (
-              <ChatResult t_type={msg.t_type ?? []} x_type={msg.x_type ?? []} />
+              <ResultModal
+                t_type={msg.t_type ?? []}
+                x_type={msg.x_type ?? []}
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+              />
             )}
           </div>
         );

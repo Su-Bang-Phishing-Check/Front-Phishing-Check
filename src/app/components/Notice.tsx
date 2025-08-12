@@ -55,10 +55,8 @@ const Notice = () => {
 
   return (
     <section
-      className="flex-col 
-    bg-[#3177FF] text-white p-4 
-    w-full max-w-[940px] mx-auto 
-    shadow space-y-2"
+      className="flex-col bg-[#3177FF] text-white p-4 
+    w-full max-w-[940px] mx-auto shadow space-y-2"
     >
       <div className="flex items-center space-x-2 px-2 md:px-4">
         <NoticeTriangleIcon />

@@ -54,6 +54,10 @@ const ChatMessageList = () => {
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]); // 선택 옵션 인덱스
   const [didSubmit, setDidSubmit] = useState(false); // 현재 옵션 제출 여부
   const [isOpen, setIsOpen] = useState(false); // 모달 열림 상태
+  const [modalData, setModalData] = useState<{
+    t_type: string[];
+    x_type: string[];
+  } | null>(null);
   const didInit = useRef(false);
 
   // 현재 시간 포맷팅
@@ -77,6 +81,17 @@ const ChatMessageList = () => {
   // 자동 스크롤 설정
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.type === "bot" && lastMessage.finish) {
+      setModalData({
+        t_type: lastMessage.t_type ?? [],
+        x_type: lastMessage.x_type ?? [],
+      });
+      setIsOpen(true);
+    }
   }, [messages]);
 
   // state 0 : 초기화 요청 + 1단계 질문, 옵션 셋팅
@@ -182,12 +197,11 @@ const ChatMessageList = () => {
       setSelectedOptions([]);
       setDidSubmit(false);
     } else if (data.state === 2) {
-      setIsOpen(true);
       setMessages((prev) => [
         ...prev,
         {
           type: "bot",
-          text: "감사합니다.\n결과를 아래에서 확인해주세요.",
+          text: "감사합니다.\n결과를 확인하세요.",
           finish: true,
           time: getCurrentTime(),
           t_type: data.data?.t_type ?? [],
@@ -227,18 +241,21 @@ const ChatMessageList = () => {
             {msg.type === "user" && (
               <UserMessage text={msg.text} time={msg.time} />
             )}
-            {msg.type === "bot" && msg.finish && (
-              <ResultModal
-                t_type={msg.t_type ?? []}
-                x_type={msg.x_type ?? []}
-                isOpen={isOpen}
-                onClose={() => setIsOpen(false)}
-              />
-            )}
           </div>
         );
       })}
       <div ref={messagesEndRef} />
+      {modalData && (
+        <ResultModal
+          t_type={modalData.t_type}
+          x_type={modalData.x_type}
+          isOpen={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+            setModalData(null);
+          }}
+        />
+      )}
     </div>
   );
 };

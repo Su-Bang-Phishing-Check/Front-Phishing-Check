@@ -7,10 +7,17 @@ interface NoticeListProps {
 
 const NoticeList = ({ title, date, link }: NoticeListProps) => {
   return (
-    <div className="flex justify-between items-center bg-[#85BAFF] w-full h-[35px] rounded-[5px] text-sm md:text-base text-black px-2 shadow-md cursor-pointer hover:bg-[#A0C4FF] transition-colors duration-200">
+    <div
+      className="flex justify-between items-center 
+                 bg-[#85BAFF] w-full h-[35px] rounded-[5px] 
+                 text-sm md:text-base text-black px-2 shadow-md
+                 hover:bg-[#A0C4FF] transition-colors duration-200"
+    >
       <Link href={link}>
-        <p className="text-left truncate">{title}</p>
-        <p className="text-[#5F5F5F] text-xs md:text-sm shrink-0">{date}</p>
+        <p className="flex-1 min-w-0 text-left truncate">{title}</p>
+        <p className="ml-2 text-[#5F5F5F] text-xs md:text-sm shrink-0 whitespace-nowrap">
+          {date}
+        </p>
       </Link>
     </div>
   );

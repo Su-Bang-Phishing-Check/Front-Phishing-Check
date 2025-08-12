@@ -182,6 +182,7 @@ const ChatMessageList = () => {
       setSelectedOptions([]);
       setDidSubmit(false);
     } else if (data.state === 2) {
+      setIsOpen(true);
       setMessages((prev) => [
         ...prev,
         {

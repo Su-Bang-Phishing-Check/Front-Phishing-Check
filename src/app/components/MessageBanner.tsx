@@ -21,9 +21,9 @@ const MessageBanner = () => {
       <div className="w-1/2 p-3">
         <div className="text-lg font-semibold">문자 내용 분석</div>
         <div className="text-sm md:text-base text-left mt-2">
-          문자 화면 및 내용을 통해
+          <span style={{fontWeight: "bold"}}>문자 화면</span> 및 <span style={{fontWeight: "bold"}}>내용</span>을 통해
           <br />
-          AI로 위험도를 분석합니다.
+          <span style={{fontWeight: "bold", color: "#3177FF"}}>AI</span>로 위험도를 분석합니다.
         </div>
       </div>
       <div

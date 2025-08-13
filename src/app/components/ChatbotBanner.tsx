@@ -26,7 +26,9 @@ const ChatbotBanner = () => {
         <ChatStepIcon />
       </div>
       <div className="text-sm md:text-base text-center mt-2">
-        상황 및 요구 내용을 통해 보이스피싱 위험을 알려드립니다.
+        <span style={{ fontWeight: "bold" }}>
+          상황</span> 및 <span style={{ fontWeight: "bold" }}>요구 내용</span>을 통해 
+          <span style={{ fontWeight: "bold" }}> 보이스피싱 위험</span>을 알려드립니다. 
       </div>
     </div>
   );

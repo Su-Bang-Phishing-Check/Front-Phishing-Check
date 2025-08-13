@@ -19,7 +19,7 @@ const ManualBanner = () => {
       <div className="w-1/2 p-3">
         <div className="text-lg font-semibold">보이스피싱 매뉴얼</div>
         <div className="text-sm md:text-base text-left mt-2">
-          보이스피싱을 이미 당했다면?{" "}
+          <span style={{fontWeight: "bold", color:"#FF0000"}}>보이스피싱</span>을 이미 당했다면?{" "}
         </div>
       </div>
       <div

@@ -1,10 +1,11 @@
-"use client";
-import { useRouter } from "next/navigation";
+'use client';
+import { useRouter } from 'next/navigation';
+import { LuFileCheck } from 'react-icons/lu';
 
 const ManualBanner = () => {
   const router = useRouter();
   const handleBannerClick = () => {
-    router.push("/safe-manual");
+    router.push('/safe-manual');
   };
   return (
     <div
@@ -13,19 +14,25 @@ const ManualBanner = () => {
         flex items-center justify-center 
         bg-white p-4 text-black 
         w-full h-[150px] md:h-[200px]
-        border-3 border-blue-100 rounded-xl
+        border-3 border-blue-100 rounded-xl hover:bg-blue-100
         hover:shadow-md active:scale-95 transition-transform"
     >
-      <div className="w-1/2 p-3">
-        <div className="text-lg font-semibold">보이스피싱 매뉴얼</div>
+      <div className="w-5/7 p-3">
+        <div className="text-lg font-bold">보이스피싱 대응 방법</div>
         <div className="text-sm md:text-base text-left mt-2">
-          <span style={{fontWeight: "bold", color:"#FF0000"}}>보이스피싱</span>을 이미 당했다면?{" "}
+          <span className="font-bold text-[#FF0000]">보이스피싱</span>
+          을 당했다면?
+          <br />
+          신속한 조치로 피해를 최소화합니다.
+          <br />
         </div>
       </div>
       <div
-        className="w-1/4 p-3
-        flex items-center justify-center"
-      ></div>
+        className="w-1/5 p-3
+            flex items-center justify-center"
+      >
+        <LuFileCheck className="w-12 h-12 text-[#3177ff]" />
+      </div>
     </div>
   );
 };

@@ -151,7 +151,7 @@ const GetPageNotice = () => {
                     key={notice.id}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="h-16 px-4 py-3 text-base text-gray-700 tabular-nums">
+                    <td className="h-16 px-4 py-3 text-sm md:text-base text-gray-700 tabular-nums">
                       {notice.id}
                     </td>
 
@@ -165,7 +165,7 @@ const GetPageNotice = () => {
                       </Link>
                     </td>
 
-                    <td className="h-16 px-4 py-3 text-right text-base text-gray-500 whitespace-nowrap">
+                    <td className="h-16 px-4 py-3 text-right text-sm md:text-base text-gray-500 whitespace-nowrap">
                       {notice.created_at}
                     </td>
                   </tr>

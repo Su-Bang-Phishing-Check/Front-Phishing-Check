@@ -17,6 +17,8 @@ const TextAnalyse = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/analyse/text`,
       {
@@ -27,7 +29,6 @@ const TextAnalyse = () => {
         body: JSON.stringify({ text }),
       }
     );
-    setIsLoading(true);
     console.log(res);
 
     if (!res.ok) {

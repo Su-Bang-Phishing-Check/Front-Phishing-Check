@@ -19,7 +19,7 @@ const ImageAnalyse = () => {
 
     const formData = new FormData();
     images.forEach((image) => {
-      formData.append('image', image);
+      formData.append('images', image);
     });
 
     const res = await fetch(

@@ -5,20 +5,22 @@ import AnalyseButton from '../../AnalyseButton';
 import AnalyseResult from '../../AnalyseResult';
 
 const ImageAnalyse = () => {
-  const [image, setImage] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
   const [result, setResult] = useState<null | {
     isScam: boolean;
     score: number;
   }>(null);
 
   const handleSubmit = async () => {
-    if (!image) {
+    if (images.length === 0) {
       alert('이미지를 선택해주세요.');
       return;
     }
 
     const formData = new FormData();
-    formData.append('image', image);
+    images.forEach((image) => {
+      formData.append('image', image);
+    });
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/analyse/image`,
@@ -39,8 +41,11 @@ const ImageAnalyse = () => {
 
   return (
     <div className="w-full max-w-[900px] flex flex-col items-center  gap-y-4">
-      <ImageUpload image={image} setImage={setImage} />
-      <AnalyseButton onClick={handleSubmit} disabled={!image} />
+      <ImageUpload image={images} setImage={setImages} />
+      <AnalyseButton
+        onClick={handleSubmit}
+        disabled={images.length === 0}
+      />
       <AnalyseResult result={result} />
     </div>
   );

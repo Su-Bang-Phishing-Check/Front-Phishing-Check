@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ImageUpload from './ImageUpload';
 import AnalyseButton from '../../AnalyseButton';
 import AnalyseResult from '../../AnalyseResult';
+import Loading from '@/Loading';
 
 const ImageAnalyse = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -10,6 +11,7 @@ const ImageAnalyse = () => {
     isScam: boolean;
     score: number;
   }>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (images.length === 0) {
@@ -21,6 +23,8 @@ const ImageAnalyse = () => {
     images.forEach((image) => {
       formData.append('images', image);
     });
+
+    setIsLoading(true);
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/analyse/image`,
@@ -37,6 +41,7 @@ const ImageAnalyse = () => {
 
     const data = await res.json();
     setResult(data);
+    setIsLoading(false);
   };
 
   return (
@@ -46,6 +51,7 @@ const ImageAnalyse = () => {
         onClick={handleSubmit}
         disabled={images.length === 0}
       />
+      <Loading isLoading={isLoading} />
       <AnalyseResult result={result} />
     </div>
   );

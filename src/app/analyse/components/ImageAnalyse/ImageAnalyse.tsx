@@ -2,15 +2,19 @@
 import { useState } from 'react';
 import ImageUpload from './ImageUpload';
 import AnalyseButton from '../../AnalyseButton';
-import AnalyseResult from '../../AnalyseResult';
+import ResultImg from './ResultImg';
 import Loading from '@/Loading';
+
+export interface imageResponse {
+  data: {
+    image_idx: number;
+    isScam: boolean;
+  }[];
+}
 
 const ImageAnalyse = () => {
   const [images, setImages] = useState<File[]>([]);
-  const [result, setResult] = useState<null | {
-    isScam: boolean;
-    score: number;
-  }>(null);
+  const [result, setResult] = useState<imageResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -45,14 +49,14 @@ const ImageAnalyse = () => {
   };
 
   return (
-    <div className="w-full max-w-[900px] flex flex-col items-center  gap-y-4">
+    <div className="w-full max-w-[900px] flex flex-col items-center gap-y-4">
       <ImageUpload image={images} setImage={setImages} />
       <AnalyseButton
         onClick={handleSubmit}
         disabled={images.length === 0}
       />
       <Loading isLoading={isLoading} />
-      <AnalyseResult result={result} />
+      <ResultImg result={result} />
     </div>
   );
 };

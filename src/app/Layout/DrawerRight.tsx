@@ -1,11 +1,21 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const DrawerRight = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  const navigate = (path: string) => {
+    setIsOpen(false);
+    router.push(path);
+  };
 
   return (
     <div className="relative">
@@ -40,13 +50,13 @@ const DrawerRight = () => {
         <ul className="p-4 space-y-2 cursor-pointer">
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/chatbot')}
+            onClick={() => navigate('/chatbot')}
           >
             챗봇 사기유형 진단
           </li>
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/analyse')}
+            onClick={() => navigate('/analyse')}
           >
             스미싱 문자 AI 분석{' '}
             <span className="italic text-sm text-[#3177FF]">
@@ -55,25 +65,25 @@ const DrawerRight = () => {
           </li>
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/contact-book')}
+            onClick={() => navigate('/contact-book')}
           >
             금융기관 연락처
           </li>
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/safe-manual')}
+            onClick={() => navigate('/safe-manual')}
           >
             보이스피싱 대응 매뉴얼
           </li>
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/notice')}
+            onClick={() => navigate('/notice')}
           >
             금융감독원 공지사항
           </li>
           <li
             className="hover:bg-gray-100 p-2 rounded"
-            onClick={() => router.push('/feedback')}
+            onClick={() => navigate('/feedback')}
           >
             의견보내기
           </li>

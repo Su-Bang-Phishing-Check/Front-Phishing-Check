@@ -1,7 +1,9 @@
-interface AnalyseResultProps {
-  result: { isScam: boolean; score: number } | null;
+import { TextResponse } from './TextAnalyse';
+
+interface ResultTextProps {
+  result: TextResponse | null;
 }
-const AnalyseResult = ({ result }: AnalyseResultProps) => {
+const ResultText = ({ result }: ResultTextProps) => {
   return (
     <div className="result-box">
       {result ? (
@@ -22,4 +24,4 @@ const AnalyseResult = ({ result }: AnalyseResultProps) => {
   );
 };
 
-export default AnalyseResult;
+export default ResultText;

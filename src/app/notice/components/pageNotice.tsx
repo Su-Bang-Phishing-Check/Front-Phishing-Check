@@ -1,7 +1,7 @@
-"use client";
-import { useEffect, useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import Link from "next/link";
+'use client';
+import { useEffect, useState } from 'react';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import Link from 'next/link';
 
 interface GetPageResponse {
   pageNo: number;
@@ -26,8 +26,8 @@ const GetPageNotice = () => {
 
   const fetchNotices = async () => {
     try {
-      setLoading(true);
       setError(null);
+      setLoading(true);
 
       const qs = new URLSearchParams({
         pageNo: String(pageNo),
@@ -35,11 +35,11 @@ const GetPageNotice = () => {
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/notice/pageNotice?${qs}`,
-        { method: "GET", cache: "no-store" }
+        { method: 'GET', cache: 'no-store' }
       );
 
       if (!res.ok) {
-        console.error("공지사항 조회 실패");
+        console.error('공지사항 조회 실패');
         return;
       }
       const data: GetPageResponse = await res.json();
@@ -53,8 +53,8 @@ const GetPageNotice = () => {
         }))
       );
     } catch (err) {
-      setError("공지사항을 불러오는 중 오류가 발생했습니다.");
-      console.error("공지사항 조회 중 오류 발생:", err);
+      setError('공지사항을 불러오는 중 오류가 발생했습니다.');
+      console.error('공지사항 조회 중 오류 발생:', err);
     } finally {
       setLoading(false);
     }
@@ -66,6 +66,62 @@ const GetPageNotice = () => {
 
   const goPrev = () => setPageNo((p) => Math.max(p - 1, 1));
   const goNext = () => setPageNo((p) => Math.min(p + 1, totalPage));
+  const goToPage = (page: number) => {
+    setPageNo(page);
+  };
+  const renderPageNumbers = (current: number) => {
+    const pageNumbers = [];
+    if (current <= 3) {
+      for (let i = 1; i <= Math.min(5, totalPage); i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => goToPage(i)}
+            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+              i === current
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    } else if (current >= totalPage - 2) {
+      for (let i = Math.max(1, totalPage - 4); i <= totalPage; i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => goToPage(i)}
+            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+              i === current
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    } else {
+      for (let i = current - 2; i <= current + 2; i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => goToPage(i)}
+            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+              i === current
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    }
+    return pageNumbers;
+  };
 
   return (
     <div className="flex flex-col items-center border-gray-200 m-4">
@@ -102,7 +158,8 @@ const GetPageNotice = () => {
                     <td className="px-4 py-3 align-middle">
                       <Link
                         href={notice.link}
-                        className="block text-base hover:underline hover:text-blue-500 line-clamp-2"
+                        className="block w-full truncate md:line-clamp-2 md:whitespace-normal
+                        text-base hover:underline hover:text-blue-500"
                       >
                         {notice.title}
                       </Link>
@@ -127,9 +184,7 @@ const GetPageNotice = () => {
             className="inline-block cursor-pointer hover:text-blue-500"
           />
         </button>
-        <span>
-          {pageNo} / {totalPage}
-        </span>
+        <span>{renderPageNumbers(pageNo)}</span>
         <button onClick={goNext} disabled={pageNo === totalPage}>
           <FiChevronRight
             size={20}

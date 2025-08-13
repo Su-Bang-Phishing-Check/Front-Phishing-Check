@@ -1,7 +1,8 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
+import Loading from '@/Loading';
 
-interface feedbackRequest {
+interface FeedbackRequest {
   text: string;
 }
 
@@ -11,33 +12,41 @@ interface FeedbackPageResponse {
 
 const FeedbackPage = () => {
   const MAX_LEN = 300;
-  const [feedback, setFeedback] = useState<feedbackRequest>({ text: "" });
-  const [message, setMessage] = useState<string>("");
+  const [feedback, setFeedback] = useState<FeedbackRequest>({
+    text: '',
+  });
+  const [message, setMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const disabled =
     feedback.text.trim().length < 5 || feedback.text.length > MAX_LEN;
 
   const submitFeedback = async () => {
     if (disabled) return;
+    setIsLoading(true);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: feedback.text.trim() }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/feedback`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: feedback.text.trim() }),
+      }
+    );
 
     if (!res.ok) {
-      console.error("Error submitting feedback");
+      console.error('Error submitting feedback');
     }
 
     const data: FeedbackPageResponse = await res.json();
 
     if (data.success) {
-      setMessage("피드백이 성공적으로 제출되었습니다. \n감사합니다!");
+      setMessage('피드백이 성공적으로 제출되었습니다. \n감사합니다!');
     } else {
-      setMessage("제출에 실패했습니다. \n다시 시도해 주세요.");
+      setMessage('제출에 실패했습니다. \n다시 시도해 주세요.');
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +59,7 @@ const FeedbackPage = () => {
         <p className="text-gray-600 text-sm md:text-base">
           더 나은 피싱체크가 되기 위한 의견을 주시면 감사하겠습니다.
           <br />
-          이용하면서 좋았던 점, 불편했던 점, 개선이 필요한 부분 등{" "}
+          이용하면서 좋았던 점, 불편했던 점, 개선이 필요한 부분 등{' '}
           <br className="md:hidden" />
           의견을 남겨주시면 더 나은 서비스 제공을 위해 노력하겠습니다.
         </p>
@@ -74,8 +83,9 @@ const FeedbackPage = () => {
           </span>
         </div>
       </div>
+      <Loading isLoading={isLoading} />
       <button
-        onClick={() => setFeedback({ text: "" })}
+        onClick={submitFeedback}
         disabled={disabled}
         className="
         w-[180px] md:w-[450px] h-[50px]
@@ -87,6 +97,9 @@ const FeedbackPage = () => {
       >
         제출하기
       </button>
+      {message && (
+        <div className="mt-4 text-base text-gray-600">{message}</div>
+      )}
     </div>
   );
 };

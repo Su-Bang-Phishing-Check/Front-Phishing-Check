@@ -2,22 +2,9 @@
 import { useEffect, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Link from 'next/link';
+import { GetPageResponse, NoticeType } from './WebNotice';
 
-interface GetPageResponse {
-  pageNo: number;
-  totalPage: number;
-  dataCount: number;
-  data: NoticeType[];
-}
-
-interface NoticeType {
-  id: number;
-  title: string;
-  link: string;
-  created_at: string;
-}
-
-const GetPageNotice = () => {
+const MobileNotice = () => {
   const [pageNo, setPageNo] = useState(1);
   const [notices, setNotices] = useState<NoticeType[]>([]);
   const [totalPage, setTotalPage] = useState(1);
@@ -134,14 +121,8 @@ const GetPageNotice = () => {
             <table className="w-full table-fixed">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="w-20 px-4 py-3 text-left text-base font-semibold text-gray-600">
-                    번호
-                  </th>
                   <th className="px-4 py-3 text-left text-base font-semibold text-gray-600">
-                    제목
-                  </th>
-                  <th className="w-36 px-4 py-3 text-right text-base font-semibold text-gray-600">
-                    등록일
+                    목록
                   </th>
                 </tr>
               </thead>
@@ -151,22 +132,22 @@ const GetPageNotice = () => {
                     key={notice.id}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="h-16 px-4 py-3 text-sm md:text-base text-gray-700 tabular-nums">
-                      {notice.id}
-                    </td>
-
-                    <td className="px-4 py-3 align-middle">
+                    <td className="px-3 py-2 grid grid-rows-[auto,1fr,auto] gap-1 h-20 w-full">
+                      <p className="text-xs text-gray-500 leading-none">
+                        {notice.id}
+                      </p>
                       <Link
                         href={notice.link}
-                        className="block w-full truncate md:line-clamp-2 md:whitespace-normal
-                        text-base hover:underline hover:text-blue-500"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full text-base truncate line-clamp-2 whitespace-normal break-keep hover:underline 
+                        hover:text-blue-500"
                       >
                         {notice.title}
                       </Link>
-                    </td>
-
-                    <td className="h-16 px-4 py-3 text-right text-sm md:text-base text-gray-500 whitespace-nowrap">
-                      {notice.created_at}
+                      <p className="text-[11px] text-gray-400 leading-none">
+                        {notice.created_at}
+                      </p>
                     </td>
                   </tr>
                 ))}
@@ -196,4 +177,4 @@ const GetPageNotice = () => {
   );
 };
 
-export default GetPageNotice;
+export default MobileNotice;

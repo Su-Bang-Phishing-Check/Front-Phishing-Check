@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { FiUpload } from 'react-icons/fi';
+import { TbMessage2Exclamation } from 'react-icons/tb';
 
 const MessageBanner = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ const MessageBanner = () => {
       border-3 border-blue-100 rounded-xl hover:bg-blue-100
       hover:shadow-md active:scale-95 transition-transform"
     >
-      <div className="w-4/7 p-3">
+      <div className="w-5/7 p-3">
         <div className="text-lg font-bold">
           문자 내용 분석{' '}
           <span className="italic text-base text-[#3177FF]">
@@ -30,14 +30,14 @@ const MessageBanner = () => {
           <span className="font-bold">내용</span>을 통해
           <br />
           <span className="font-bold text-[#3177FF]">AI</span>로
-          위험도를 분석합니다.
+          스미싱 위험을 분석합니다.
         </div>
       </div>
       <div
-        className="w-1/5 p-3
+        className="w-1/5 p-2
       flex items-center justify-center"
       >
-        <FiUpload className="w-12 h-12 text-[#3177ff]" />
+        <TbMessage2Exclamation className="w-13 h-13 text-[#3177ff]" />
       </div>
     </div>
   );

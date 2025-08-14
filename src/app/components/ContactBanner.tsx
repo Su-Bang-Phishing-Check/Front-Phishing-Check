@@ -31,10 +31,10 @@ const ContactBanner = () => {
         </div>
       </div>
       <div
-        className="w-1/5 p-3
+        className="w-1/5 p-2
                   flex items-center justify-center"
       >
-        <FaAddressBook className="w-12 h-12 text-[#3177ff]" />
+        <FaAddressBook className="w-13 h-13 text-[#3177ff]" />
       </div>
     </div>
   );

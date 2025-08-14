@@ -179,7 +179,7 @@ const WebNotice = () => {
       ) : (
         !loading && !error && <p>공지사항이 없습니다.</p>
       )}
-      <div className="mt-4">
+      <div className="mt-4 flex items-center gap-x-2">
         <button onClick={goPrev} disabled={pageNo === 1}>
           <FiChevronLeft
             size={20}

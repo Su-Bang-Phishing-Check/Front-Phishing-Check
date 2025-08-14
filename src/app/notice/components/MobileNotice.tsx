@@ -132,7 +132,7 @@ const MobileNotice = () => {
                     key={notice.id}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="px-3 py-2 grid grid-rows-[auto,1fr,auto] gap-1 h-20 w-full">
+                    <td className="px-3 py-2 grid grid-rows-[auto,1fr,auto] gap-1 h-24 w-full">
                       <p className="text-xs text-gray-500 leading-none">
                         {notice.id}
                       </p>
@@ -140,7 +140,7 @@ const MobileNotice = () => {
                         href={notice.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block w-full text-base truncate line-clamp-2 whitespace-normal break-keep hover:underline 
+                        className="block w-full text-base line-clamp-2 whitespace-normal break-keep hover:underline 
                         hover:text-blue-500"
                       >
                         {notice.title}
@@ -158,7 +158,7 @@ const MobileNotice = () => {
       ) : (
         !loading && !error && <p>공지사항이 없습니다.</p>
       )}
-      <div className="mt-4">
+      <div className="mt-4 flex items-center gap-x-2">
         <button onClick={goPrev} disabled={pageNo === 1}>
           <FiChevronLeft
             size={20}

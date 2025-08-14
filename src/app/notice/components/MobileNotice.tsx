@@ -64,7 +64,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-1 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -80,7 +80,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-1 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -96,7 +96,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-1 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'

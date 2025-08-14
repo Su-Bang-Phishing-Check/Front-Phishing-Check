@@ -64,7 +64,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -80,7 +80,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -96,7 +96,7 @@ const MobileNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-2 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -111,7 +111,7 @@ const MobileNotice = () => {
   };
 
   return (
-    <div className="flex flex-col items-center border-gray-200 m-4">
+    <div className="flex flex-col items-center border-gray-200 m-2">
       {loading && <p>불러오는 중입니다...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
@@ -158,7 +158,7 @@ const MobileNotice = () => {
       ) : (
         !loading && !error && <p>공지사항이 없습니다.</p>
       )}
-      <div className="mt-4 flex items-center gap-x-2">
+      <div className="mt-4">
         <button onClick={goPrev} disabled={pageNo === 1}>
           <FiChevronLeft
             size={20}

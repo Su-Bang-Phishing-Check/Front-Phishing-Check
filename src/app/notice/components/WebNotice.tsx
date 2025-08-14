@@ -77,7 +77,7 @@ const WebNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-4 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -93,7 +93,7 @@ const WebNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-4 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -109,7 +109,7 @@ const WebNotice = () => {
           <button
             key={i}
             onClick={() => goToPage(i)}
-            className={`w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
+            className={`mx-4 cursor-pointer w-8 h-8 items-center justify-center border border-gray-300 rounded-md ${
               i === current
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-700'
@@ -179,7 +179,7 @@ const WebNotice = () => {
       ) : (
         !loading && !error && <p>공지사항이 없습니다.</p>
       )}
-      <div className="mt-4 flex items-center gap-x-2">
+      <div className="mt-4">
         <button onClick={goPrev} disabled={pageNo === 1}>
           <FiChevronLeft
             size={20}

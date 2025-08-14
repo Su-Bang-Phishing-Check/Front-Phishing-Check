@@ -37,10 +37,11 @@ const ChatbotBanner = () => {
                   flex items-center justify-center"
       >
         <Image
-          src="/assets/chatbot.png"
+          src="/assets/img-2.png"
           alt="Chatbot Icon"
           width={110}
           height={110}
+          className="-translate-y-1 md:-translate-y-2 object-contain"
         />
       </div>
     </div>

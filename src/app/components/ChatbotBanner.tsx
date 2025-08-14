@@ -27,7 +27,8 @@ const ChatbotBanner = () => {
         <div className="text-sm md:text-base text-left mt-2">
           <span className="font-bold">상황</span> 및{' '}
           <span className="font-bold">요구 내용</span>을 통해
-          <span className="font-bold"> 보이스피싱 위험</span>을
+          <span className="font-bold"> 보이스피싱 </span>
+          <span className="font-bold text-red-500">위험</span>을
           알려드립니다.
           <br />
         </div>

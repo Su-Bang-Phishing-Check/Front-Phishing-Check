@@ -20,7 +20,7 @@ const ManualBanner = () => {
       <div className="w-5/7 p-3">
         <div className="text-lg font-bold">보이스피싱 대응 방법</div>
         <div className="text-sm md:text-base text-left mt-2">
-          <span className="font-bold text-[#FF0000]">보이스피싱</span>
+          <span className="font-bold text-red-500">보이스피싱</span>
           을 당했다면?
           <br />
           신속한 조치로 피해를 최소화합니다.

@@ -1,7 +1,9 @@
-interface AnalyseResultProps {
-  result: { isScam: boolean; score: number } | null;
+import { TextResponse } from './TextAnalyse';
+
+interface ResultTextProps {
+  result: TextResponse | null;
 }
-const AnalyseResult = ({ result }: AnalyseResultProps) => {
+const ResultText = ({ result }: ResultTextProps) => {
   return (
     <div className="result-box">
       {result ? (
@@ -13,7 +15,7 @@ const AnalyseResult = ({ result }: AnalyseResultProps) => {
               ? '🚨 사기 문자입니다.'
               : '✅ 정상적인 문자입니다.'}
           </p>
-          <p>신뢰 점수: {(result.score * 100).toFixed(4)}%</p>
+          {/* <p>신뢰 점수: {(result.score * 100).toFixed(4)}%</p> */}
         </div>
       ) : (
         <p className="text-gray-500">분석 결과가 없습니다.</p>
@@ -22,4 +24,4 @@ const AnalyseResult = ({ result }: AnalyseResultProps) => {
   );
 };
 
-export default AnalyseResult;
+export default ResultText;

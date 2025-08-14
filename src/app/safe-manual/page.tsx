@@ -47,8 +47,8 @@ const ManualPage = () => {
           <h1 className="pl-8 -indent-5">
             1. 입금 금융회사 또는 송금 금융회사 콜센터에{' '}
             <span className="text-red-600">즉시</span> 전화하여
-            피해신고 및 계좌
-            <span className="text-red-600">지급정지 신청</span>
+            <span className='text-red-600'> 피해신고</span> 및
+            <span className="text-red-600"> 계좌지급정지 신청</span>
           </h1>
           <p className="text-[0.875rem] md:text-base pl-8">
             <LinkInternal
@@ -179,7 +179,7 @@ const ManualPage = () => {
                   (초기화 전까지 휴대전화 전원을 끄거나 비행기모드
                   권장)
                 </span>
-                <br />- 휴대전화 기기사 서비스센터를 통해 악성코드
+                <br />- 휴대전화 제조사 서비스센터를 통해 악성코드
                 감염 여부 확인 및 상담
               </div>
             </li>

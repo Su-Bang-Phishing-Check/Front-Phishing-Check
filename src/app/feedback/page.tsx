@@ -18,7 +18,7 @@ const FeedbackPage = () => {
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const disabled =
+  const disabled: boolean =
     feedback.text.trim().length < 5 || feedback.text.length > MAX_LEN;
 
   const submitFeedback = async () => {
@@ -41,12 +41,12 @@ const FeedbackPage = () => {
     }
 
     const data: FeedbackPageResponse = await res.json();
-
+    setIsLoading(false);
+    setFeedback({ text: '' });
     if (data.success) {
-      setMessage('피드백이 성공적으로 제출되었습니다. \n감사합니다!');
+      setMessage('피드백이 성공적으로 제출되었습니다. 감사합니다!');
     } else {
-      setMessage('제출에 실패했습니다. \n다시 시도해 주세요.');
-      setIsLoading(false);
+      setMessage('제출에 실패했습니다. 다시 시도해 주세요.');
     }
   };
 
@@ -70,7 +70,7 @@ const FeedbackPage = () => {
           onChange={(e) => setFeedback({ text: e.target.value })}
           placeholder="요청사항/개선점/버그 제보 등을 자유롭게 작성해주세요."
           className="
-      w-full h-50 md:h-70
+      w-full min-h-[200px] md:min-h-[280px]
       bg-white border border-gray-200 rounded-lg shadow-sm
         p-4 resize-none placeholder-gray-400
         focus:outline-none

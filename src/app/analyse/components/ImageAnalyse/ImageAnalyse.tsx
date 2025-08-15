@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ImageUpload from './ImageUpload';
 import AnalyseButton from '../../AnalyseButton';
 import ResultImg from './ResultImg';
-import Loading from '@/Loading';
+import Loading from '@/app/Loading';
 
 export interface imageResponse {
   data: {

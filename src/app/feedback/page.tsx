@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Loading from '@/Loading';
+import Loading from '@/app/Loading';
 
 interface FeedbackRequest {
   text: string;

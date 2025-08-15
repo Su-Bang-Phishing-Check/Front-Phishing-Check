@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import NoticeList from './NoticeList';
 import NoticeTriangleIcon from './NoticeTriangleIcon';
 import { useRouter } from 'next/navigation';
-import Loading from '@/Loading';
+import Loading from '@/app/Loading';
 
 interface GetMainNoticeResponse {
   dataCount: number;

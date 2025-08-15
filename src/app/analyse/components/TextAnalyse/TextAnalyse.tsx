@@ -4,7 +4,7 @@ import { useState } from 'react';
 import TextInput from './TextInput';
 import AnalyseButton from '../../AnalyseButton';
 import ResultText from './ResultText';
-import Loading from '@/Loading';
+import Loading from '@/app/Loading';
 
 export interface TextResponse {
   isScam: boolean;

@@ -15,7 +15,7 @@ export interface imageResponse {
 const ImageAnalyse = () => {
   const [images, setImages] = useState<File[]>([]);
   const [result, setResult] = useState<imageResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     if (images.length === 0) {
@@ -56,7 +56,7 @@ const ImageAnalyse = () => {
         disabled={images.length === 0}
       />
       <Loading isLoading={isLoading} />
-      <ResultImg result={result} />
+      <ResultImg result={result} isLoading={isLoading} />
     </div>
   );
 };

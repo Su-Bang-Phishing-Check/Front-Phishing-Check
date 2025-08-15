@@ -2,11 +2,13 @@ import { TextResponse } from './TextAnalyse';
 
 interface ResultTextProps {
   result: TextResponse | null;
+  isLoading: boolean;
 }
-const ResultText = ({ result }: ResultTextProps) => {
+const ResultText = ({ result, isLoading }: ResultTextProps) => {
   return (
     <div className="result-box">
-      {result ? (
+      {isLoading && <p className="text-gray-500">분석 중...</p>}
+      {!isLoading && result ? (
         <div className="text-black">
           <h2 className="text-lg font-semibold">분석 결과</h2>
           <p>

@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import DrawerRight from './DrawerRight';
+import PWABtn from './PWABtn';
 
 export default function Header() {
   const router = useRouter();
@@ -16,7 +17,10 @@ export default function Header() {
       >
         피싱체크
       </h1>
-      <DrawerRight />
+      <div className="flex items-center gap-2">
+        <PWABtn />
+        <DrawerRight />
+      </div>
     </header>
   );
 }

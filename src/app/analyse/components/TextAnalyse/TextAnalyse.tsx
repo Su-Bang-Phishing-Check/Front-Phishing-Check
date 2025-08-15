@@ -4,7 +4,7 @@ import { useState } from 'react';
 import TextInput from './TextInput';
 import AnalyseButton from '../../AnalyseButton';
 import ResultText from './ResultText';
-import Loading from '@/Loading';
+import Loading from '@/app/Loading';
 
 export interface TextResponse {
   isScam: boolean;
@@ -14,7 +14,7 @@ export interface TextResponse {
 const TextAnalyse = () => {
   const [text, setText] = useState('');
   const [result, setResult] = useState<TextResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -46,7 +46,7 @@ const TextAnalyse = () => {
       <TextInput text={text} setText={setText} />
       <AnalyseButton onClick={handleSubmit} disabled={!text.trim()} />
       <Loading isLoading={isLoading} />
-      <ResultText result={result} />
+      <ResultText result={result} isLoading={isLoading} />
     </div>
   );
 };

@@ -2,11 +2,13 @@ import { imageResponse } from './ImageAnalyse';
 
 interface ResultImgProps {
   result: imageResponse | null;
+  isLoading: boolean;
 }
-const ResultImg = ({ result }: ResultImgProps) => {
+const ResultImg = ({ result, isLoading }: ResultImgProps) => {
   return (
     <div className="result-box">
-      {result ? (
+      {isLoading && <p className="text-gray-500">분석 중...</p>}
+      {!isLoading && result ? (
         <div className="text-black">
           <h2 className="text-lg font-semibold">분석 결과</h2>
           {result.data.map((item) => (

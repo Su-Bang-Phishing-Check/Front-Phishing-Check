@@ -44,7 +44,10 @@ const TextAnalyse = () => {
   return (
     <div className="w-full max-w-[900px] flex flex-col gap-y-4 items-center">
       <TextInput text={text} setText={setText} />
-      <AnalyseButton onClick={handleSubmit} disabled={!text.trim()} />
+      <AnalyseButton
+        onClick={handleSubmit}
+        disabled={text.trim().length < 15}
+      />
       <Loading isLoading={isLoading} />
       <ResultText result={result} isLoading={isLoading} />
     </div>

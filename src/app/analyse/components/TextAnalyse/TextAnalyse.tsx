@@ -46,7 +46,7 @@ const TextAnalyse = () => {
       <TextInput text={text} setText={setText} />
       <AnalyseButton
         onClick={handleSubmit}
-        disabled={text.trim().length < 15}
+        disabled={text.trim().length < 15 || text.trim().length > 256}
       />
       <Loading isLoading={isLoading} />
       <ResultText result={result} isLoading={isLoading} />

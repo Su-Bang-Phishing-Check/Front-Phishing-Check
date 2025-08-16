@@ -21,7 +21,15 @@ const isStandaloneDisplay = () => {
 
 const isIOS = () => {
   if (typeof window === 'undefined') return false;
-  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const ua = navigator.userAgent;
+
+  if (/iPad|iPhone|iPod/.test(ua)) {
+    return true;
+  }
+  if (/Macintosh/.test(ua) && 'ontouchend' in document) {
+    return true;
+  }
+  return false;
 };
 
 const InstallPWA = () => {
@@ -30,6 +38,7 @@ const InstallPWA = () => {
   const [installed, setInstalled] = useState<boolean>(
     isStandaloneDisplay()
   );
+
   const ios = useMemo(() => isIOS(), []);
 
   useEffect(() => {

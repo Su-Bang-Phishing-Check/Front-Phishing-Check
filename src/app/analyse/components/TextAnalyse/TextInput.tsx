@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 const TextInput = ({
   text,
@@ -9,7 +9,7 @@ const TextInput = ({
   text: string;
   setText: (value: string) => void;
 }) => {
-  const MAX_LEN = 256;
+  const MAX_LEN = 1024;
 
   return (
     <>
